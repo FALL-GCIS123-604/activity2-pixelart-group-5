@@ -71,24 +71,21 @@ def draw_line_from_string(color_string, turta):
     """
     This function draws one column of pixels based on a color string 
     """
+    colors = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A']
+    
     l = len(color_string)
-    s = 1
-    for i in color_string:
-            m=color_string.index(i)
-            int(m)
-            color=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A']
-            if i not in color: #Checks if current character is in the list and if it is not it return False
-                return False
-            else:
-                draw_pixel(i, turta)
-                if s < l: 
-                    if color_string[m+1] not in color:
-                        break
-                    else:
-                        turta.forward(PIXEL_SIZE)
-            s= s+1
-            m= m+1
-    return True #returns True if all characters are valid
+    for i in range(l):
+        char = color_string[i]
+        if char not in colors:
+            return False  #Checks if current character is in the list and if it is not it return False
+
+        draw_pixel(char, turta)  # Draw the valid pixel
+        
+        # Check if there's a next character and if it's valid
+        if i < l - 1 and color_string[i + 1] in colors:
+            turta.forward(PIXEL_SIZE)  # Move forward only if the next character is valid
+    
+    return True  #returns True if all characters are valid
 
 def draw_shape_from_string(turta):
     """
@@ -110,7 +107,7 @@ def draw_shape_from_string(turta):
         turta.forward(PIXEL_SIZE)
         turta.left(90)
         turta.pendown()
-draw_shape_from_string(turta)
+
 #Part 2
 def draw_grid(turta):
     """
