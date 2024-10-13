@@ -94,7 +94,7 @@ def draw_shape_from_string(turta):
     """
     This functions prompts the user to input color string
     """
-    while True: #As long as the loop doesnt break, the program will keep asking the user to input more color strings and draw colums
+    while True: #As long as the loop doesnt break, the program will keep asking the user to input more color strings and draw columns
         color_string= input("Please enter colors string: ")
         if color_string == "":
             print("Empty string")
@@ -110,3 +110,45 @@ def draw_shape_from_string(turta):
         turta.forward(PIXEL_SIZE)
         turta.left(90)
         turta.pendown()
+draw_shape_from_string(turta)
+#Part 2
+def draw_grid(turta):
+    """
+    This function draws a 20x20 checkered grid of pixels
+    """
+    for i in range(ROWS):
+        turta.speed(0)
+        for j in range(COLUMNS):
+            if (i + j) % 2 == 0:
+                color_string = '0'
+            else:
+                color_string = '2'
+            draw_pixel(color_string, turta)
+            if j < COLUMNS-1:
+             turta.forward(PIXEL_SIZE)
+        turta.penup()
+        turta.backward(PIXEL_SIZE * (COLUMNS-1))
+        turta.right(90)
+        turta.forward(PIXEL_SIZE)
+        turta.left(90)
+        turta.pendown()
+#Part 3
+def draw_shape_from_file(turta):
+    """
+    This function reads from a file and draws a shape based on character sequence. Every line will be
+    """
+    file_path = input("Enter the path of the file that you want to read its content: ")
+    with open(file_path, 'r') as file: #opening the file
+        for line in file:
+            color = line.strip()
+            draw_line_from_string(color, turta) 
+            """
+            The loop inside this function will iterate over every characte and store it in the parameter color
+            """
+            turta.penup() #Positioning turtle to next column
+            turta.backward((len(line))* (PIXEL_SIZE) - (PIXEL_SIZE*2))
+            turta.right(90)
+            turta.forward(PIXEL_SIZE)
+            turta.left(90)
+            turta.pendown()
+            
